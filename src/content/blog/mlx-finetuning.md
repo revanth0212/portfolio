@@ -3,7 +3,7 @@ title: "A Guide to Fine-Tuning Gemma 3 on Apple Hardware"
 date: "2025-12-29"
 readTime: "10 min read"
 excerpt: "In the current landscape of AI, bigger isn't always better. While massive models know a little bit about everything developers only need a partner that deeply understands their specific language."
-tags: ["AI", "MLX", "Fine-tuning", "Apple", "Gemma", "JavaScript"]
+tags: ["AI", "Fine-tuning", "MLX"]
 ---
 
 In the current landscape of AI, bigger isn't always better. While massive models know a little bit about everything—from French poetry to Python—most developers only need a partner that deeply understands their specific language.
