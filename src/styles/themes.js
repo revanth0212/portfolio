@@ -15,21 +15,21 @@ export const lightTheme = {
   muted: '#6c757d',
 };
 
-// Dark theme - terminal aesthetic with black background and green text
+// Dark theme - terminal aesthetic with black background and gold accents
 export const darkTheme = {
   name: 'dark',
   background: '#0a0a0a',
-  foreground: '#00ff00',
-  accent: '#00ffff',
+  foreground: '#e8e8e8',
+  accent: '#D4AF37',
   secondary: '#1a1a1a',
   border: '#333333',
   terminal: '#000000',
-  terminalText: '#00ff00',
-  success: '#00ff00',
-  error: '#ff0000',
-  warning: '#ffff00',
-  info: '#00ffff',
-  muted: '#008000',
+  terminalText: '#D4AF37',
+  success: '#D4AF37',
+  error: '#ff4444',
+  warning: '#FFA500',
+  info: '#87CEEB',
+  muted: '#999999',
 };
 
 // Classic Light theme - minimalist, clean, modern
