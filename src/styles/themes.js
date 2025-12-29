@@ -52,20 +52,20 @@ export const classicLightTheme = {
   hover: '#f5f5f5',
 };
 
-// Classic Dark theme - minimalist dark mode
+// Classic Dark theme - minimalist dark mode with gold accents
 export const classicDarkTheme = {
   name: 'classic-dark',
   background: '#0f0f0f',
   foreground: '#e5e5e5',
-  accent: '#3b82f6',
+  accent: '#D4AF37',
   secondary: '#1a1a1a',
   border: '#262626',
   terminal: '#1a1a1a',
   terminalText: '#e5e5e5',
-  success: '#22c55e',
+  success: '#D4AF37',
   error: '#ef4444',
-  warning: '#eab308',
-  info: '#06b6d4',
+  warning: '#FFA500',
+  info: '#87CEEB',
   muted: '#a3a3a3',
   card: '#1a1a1a',
   cardShadow: '0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2)',
