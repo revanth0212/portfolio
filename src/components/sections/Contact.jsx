@@ -107,8 +107,8 @@ const Contact = () => {
     <SectionContainer>
       <SectionTitle theme={currentTheme}>Get In Touch</SectionTitle>
       <p style={{ color: currentTheme.muted }}>
-        I'm always open to discussing new projects, creative ideas, or opportunities
-        to be part of your vision.
+        I'm a Senior Software Engineer at Adobe with 9+ years of experience.
+        Always open to discussing new opportunities and ideas.
       </p>
 
       <ContactCard theme={currentTheme}>
@@ -116,8 +116,8 @@ const Contact = () => {
           <ContactIcon>📧</ContactIcon>
           <ContactInfo>
             <ContactLabel theme={currentTheme}>Email</ContactLabel>
-            <ContactValue href="mailto:hello@example.com" theme={currentTheme}>
-              hello@example.com
+            <ContactValue href="mailto:revanth0212@gmail.com" theme={currentTheme}>
+              revanth0212@gmail.com
             </ContactValue>
           </ContactInfo>
         </ContactItem>
@@ -126,22 +126,22 @@ const Contact = () => {
           <ContactIcon>📍</ContactIcon>
           <ContactInfo>
             <ContactLabel theme={currentTheme}>Location</ContactLabel>
-            <ContactValue theme={currentTheme}>San Francisco, CA</ContactValue>
+            <ContactValue theme={currentTheme}>Austin, Texas</ContactValue>
           </ContactInfo>
         </ContactItem>
 
         <ContactItem theme={currentTheme}>
           <ContactIcon>💼</ContactIcon>
           <ContactInfo>
-            <ContactLabel theme={currentTheme}>Status</ContactLabel>
-            <ContactValue theme={currentTheme}>Open to opportunities</ContactValue>
+            <ContactLabel theme={currentTheme}>Company</ContactLabel>
+            <ContactValue theme={currentTheme}>Adobe</ContactValue>
           </ContactInfo>
         </ContactItem>
       </ContactCard>
 
       <SocialLinks>
         <SocialButton
-          href="https://github.com/yourusername"
+          href="https://github.com/revanth0212"
           target="_blank"
           rel="noopener noreferrer"
           theme={currentTheme}
@@ -149,20 +149,12 @@ const Contact = () => {
           <span>🐙</span> GitHub
         </SocialButton>
         <SocialButton
-          href="https://linkedin.com/in/yourusername"
+          href="https://www.linkedin.com/in/revanth0212"
           target="_blank"
           rel="noopener noreferrer"
           theme={currentTheme}
         >
           <span>💼</span> LinkedIn
-        </SocialButton>
-        <SocialButton
-          href="https://twitter.com/yourusername"
-          target="_blank"
-          rel="noopener noreferrer"
-          theme={currentTheme}
-        >
-          <span>🐦</span> Twitter
         </SocialButton>
       </SocialLinks>
     </SectionContainer>

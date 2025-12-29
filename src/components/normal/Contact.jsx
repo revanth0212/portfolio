@@ -95,26 +95,20 @@ const Contact = () => {
     {
       icon: '📧',
       label: 'Email',
-      value: 'hello@example.com',
-      href: 'mailto:hello@example.com'
+      value: 'revanth0212@gmail.com',
+      href: 'mailto:revanth0212@gmail.com'
     },
     {
       icon: '💼',
       label: 'LinkedIn',
-      value: 'Connect on LinkedIn',
-      href: 'https://linkedin.com'
+      value: 'linkedin.com/in/revanth0212',
+      href: 'https://www.linkedin.com/in/revanth0212'
     },
     {
       icon: '🐙',
       label: 'GitHub',
-      value: 'Check out my repositories',
-      href: 'https://github.com'
-    },
-    {
-      icon: '🐦',
-      label: 'Twitter',
-      value: 'Follow me on Twitter',
-      href: 'https://twitter.com'
+      value: 'github.com/revanth0212',
+      href: 'https://github.com/revanth0212'
     }
   ];
 
@@ -146,8 +140,7 @@ const Contact = () => {
       </ContactCard>
 
       <FooterText theme={currentTheme}>
-        I typically respond to emails within 24-48 hours. For urgent matters,
-        please reach out via LinkedIn or Twitter.
+        I'm currently a Senior Software Engineer at Adobe. Feel free to reach out!
       </FooterText>
     </Container>
   );

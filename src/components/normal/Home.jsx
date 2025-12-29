@@ -69,9 +69,9 @@ const Home = () => {
   return (
     <Container>
       <Hero>
-        <Title theme={currentTheme}>Hi, I'm Revanth</Title>
+        <Title theme={currentTheme}>Hi, I'm Revanth Kumar Annavarapu</Title>
         <Subtitle theme={currentTheme}>
-          Full-stack developer passionate about building elegant solutions to complex problems.
+          Senior Software Engineer at Adobe with 9+ years of experience in frontend development and distributed systems.
         </Subtitle>
         <Navigation>
           <NavLink to="/about" theme={currentTheme}>About</NavLink>

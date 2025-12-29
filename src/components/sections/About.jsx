@@ -74,21 +74,27 @@ const About = () => {
 
       <Content>
         <Paragraph>
-          <Highlight theme={currentTheme}>Hello, World!</Highlight> I'm a passionate developer
-          who loves building elegant solutions to complex problems. Welcome to my
-          corner of the internet, presented in a classic terminal style.
+          <Highlight theme={currentTheme}>Hello!</Highlight> I'm Revanth Kumar Annavarapu,
+          a Senior Software Engineer at Adobe with over 9 years of experience in
+          frontend development and software engineering.
         </Paragraph>
 
         <Paragraph>
-          I specialize in <Highlight theme={currentTheme}>full-stack web development</Highlight>,
-          with a focus on creating performant, accessible, and user-friendly applications.
-          My expertise spans modern JavaScript frameworks, cloud architecture, and
-          developer experience.
+          I specialize in <Highlight theme={currentTheme}>building scalable web applications</Highlight>,
+          distributed systems, and developer tools. My expertise spans frontend frameworks,
+          backend architecture, database design, and network security.
         </Paragraph>
 
         <Paragraph>
-          When I'm not coding, you can find me contributing to open-source projects,
-          writing technical blog posts, or exploring the latest in tech.
+          I hold a Master's degree from <Highlight theme={currentTheme}>The University of Texas at Dallas</Highlight>
+          and have a Cisco Certified Network Associate certification. Throughout my career,
+          I've worked on projects ranging from IoT systems to real-time e-commerce platforms
+          and distributed database systems.
+        </Paragraph>
+
+        <Paragraph>
+          Currently based in <Highlight theme={currentTheme}>Austin, Texas</Highlight>, I'm passionate
+          about clean code, elegant architecture, and mentoring other developers.
         </Paragraph>
 
         <Paragraph>

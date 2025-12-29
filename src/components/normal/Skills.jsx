@@ -69,20 +69,20 @@ const Skills = () => {
 
   const skills = [
     {
-      category: 'Frontend',
-      items: ['React', 'TypeScript', 'Next.js', 'Vue.js', 'Tailwind CSS', 'Styled Components']
+      category: 'Frontend Development',
+      items: ['JavaScript', 'React', 'TypeScript', 'HTML5/CSS3', 'Frontend Architecture', 'UI/UX Design']
     },
     {
-      category: 'Backend',
-      items: ['Node.js', 'Python', 'PostgreSQL', 'MongoDB', 'GraphQL', 'REST APIs']
+      category: 'Backend & Languages',
+      items: ['Java', 'Python', 'Node.js', 'SQL Server', 'REST APIs', 'Socket Programming']
     },
     {
-      category: 'DevOps & Tools',
-      items: ['Docker', 'AWS', 'Git', 'CI/CD', 'Linux', 'Nginx']
+      category: 'Systems & Infrastructure',
+      items: ['Distributed Systems', 'Networking', 'Network Security', 'SDN/OpenDayLight', 'Linux', 'IoT/Raspberry Pi']
     },
     {
-      category: 'Languages',
-      items: ['JavaScript', 'TypeScript', 'Python', 'Java', 'Go', 'SQL']
+      category: 'Tools & Platforms',
+      items: ['Git', 'Docker', 'AWS', 'MSSQL', 'Mininet', 'OpenFlow']
     }
   ];
 
