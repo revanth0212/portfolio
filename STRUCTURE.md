@@ -30,7 +30,7 @@ src/
 │   │   ├── Header.jsx
 │   │   └── Footer.jsx
 │   │
-│   ├── normal/         # Normal view components
+│   ├── classic/        # Classic view components
 │   │   ├── Home.jsx
 │   │   ├── About.jsx
 │   │   ├── Projects.jsx
@@ -89,7 +89,7 @@ import { siteConfig } from '../../config/site';
 
 ### 3. **Views** (`src/components/`)
 - **Terminal view**: `components/sections/` - Developer-focused terminal UI
-- **Normal view**: `components/normal/` - Clean, minimalist UI
+- **Classic view**: `components/classic/` - Clean, minimalist UI
 - **Shared**: `components/common/` - Components used by both views
 - **Layout**: `components/layout/` - Header, Footer, etc.
 

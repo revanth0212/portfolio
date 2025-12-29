@@ -23,7 +23,7 @@ export const ViewProvider = ({ children }) => {
   }, [view]);
 
   const toggleView = () => {
-    setView(prevView => prevView === 'terminal' ? 'normal' : 'terminal');
+    setView(prevView => prevView === 'terminal' ? 'classic' : 'terminal');
   };
 
   return (

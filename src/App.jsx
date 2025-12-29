@@ -15,14 +15,14 @@ import Blog from './components/sections/Blog';
 import BlogPost from './components/sections/BlogPost';
 import Skills from './components/sections/Skills';
 import Contact from './components/sections/Contact';
-// Normal view components
-import NormalHome from './components/normal/Home';
-import NormalAbout from './components/normal/About';
-import NormalProjects from './components/normal/Projects';
-import NormalBlog from './components/normal/Blog';
-import NormalBlogPost from './components/normal/BlogPost';
-import NormalSkills from './components/normal/Skills';
-import NormalContact from './components/normal/Contact';
+// Classic view components
+import ClassicHome from './components/classic/Home';
+import ClassicAbout from './components/classic/About';
+import ClassicProjects from './components/classic/Projects';
+import ClassicBlog from './components/classic/Blog';
+import ClassicBlogPost from './components/classic/BlogPost';
+import ClassicSkills from './components/classic/Skills';
+import ClassicContact from './components/classic/Contact';
 import { AVAILABLE_COMMANDS } from './utils/keyboardNavigation';
 
 const AppWrapper = styled.div`
@@ -263,7 +263,7 @@ const AppContent = () => {
     );
   }
 
-  // Normal View
+  // Classic View
   return (
     <AppWrapper>
       <GlobalStyle />
@@ -272,13 +272,13 @@ const AppContent = () => {
       <Main>
         <Content>
           <Routes>
-            <Route path="/" element={<NormalHome />} />
-            <Route path="/about" element={<NormalAbout />} />
-            <Route path="/projects" element={<NormalProjects />} />
-            <Route path="/blog" element={<NormalBlog />} />
-            <Route path="/blog/:id" element={<NormalBlogPost />} />
-            <Route path="/skills" element={<NormalSkills />} />
-            <Route path="/contact" element={<NormalContact />} />
+            <Route path="/" element={<ClassicHome />} />
+            <Route path="/about" element={<ClassicAbout />} />
+            <Route path="/projects" element={<ClassicProjects />} />
+            <Route path="/blog" element={<ClassicBlog />} />
+            <Route path="/blog/:id" element={<ClassicBlogPost />} />
+            <Route path="/skills" element={<ClassicSkills />} />
+            <Route path="/contact" element={<ClassicContact />} />
           </Routes>
         </Content>
       </Main>

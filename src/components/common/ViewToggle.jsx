@@ -22,7 +22,7 @@ const ToggleButton = styled.button`
   &:hover {
     background-color: ${props => props.theme.accent};
     border-color: ${props => props.theme.accent};
-    color: ${props => props.theme.name === 'light' || props.theme.name === 'normal-light' ? '#fff' : props.theme.background};
+    color: ${props => props.theme.name === 'light' || props.theme.name === 'classic-light' ? '#fff' : props.theme.background};
   }
 
   &:focus {
@@ -45,14 +45,14 @@ const ViewToggle = () => {
   };
 
   const getLabel = () => {
-    return view === 'terminal' ? 'Normal' : 'Terminal';
+    return view === 'terminal' ? 'Terminal' : 'Classic';
   };
 
   return (
     <ToggleButton
       onClick={toggleView}
-      aria-label={`Switch to ${view === 'terminal' ? 'normal' : 'terminal'} view`}
-      title={`Toggle view (${getLabel()}) - Ctrl+V`}
+      aria-label={`Switch to ${view === 'terminal' ? 'classic' : 'terminal'} view`}
+      title={`Switch view (Ctrl+V)`}
       theme={currentTheme}
     >
       <span>{getIcon()}</span>

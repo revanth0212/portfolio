@@ -89,7 +89,7 @@ The blog post will automatically:
 - ✅ Be accessible via `/blog/5`
 - ✅ Render with proper markdown formatting
 - ✅ Support syntax highlighting for code blocks
-- ✅ Work in both Terminal and Normal views
+- ✅ Work in both Terminal and Classic views
 
 ## Example: Complete Template
 

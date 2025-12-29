@@ -32,9 +32,9 @@ export const darkTheme = {
   muted: '#008000',
 };
 
-// Normal Light theme - minimalist, clean, modern
-export const normalLightTheme = {
-  name: 'normal-light',
+// Classic Light theme - minimalist, clean, modern
+export const classicLightTheme = {
+  name: 'classic-light',
   background: '#fafafa',
   foreground: '#1a1a1a',
   accent: '#2563eb',
@@ -52,9 +52,9 @@ export const normalLightTheme = {
   hover: '#f5f5f5',
 };
 
-// Normal Dark theme - minimalist dark mode
-export const normalDarkTheme = {
-  name: 'normal-dark',
+// Classic Dark theme - minimalist dark mode
+export const classicDarkTheme = {
+  name: 'classic-dark',
   background: '#0f0f0f',
   foreground: '#e5e5e5',
   accent: '#3b82f6',

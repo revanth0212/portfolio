@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { ThemeProvider as SCThemeProvider } from 'styled-components';
-import { lightTheme, darkTheme, normalLightTheme, normalDarkTheme } from '../styles/themes';
+import { lightTheme, darkTheme, classicLightTheme, classicDarkTheme } from '../styles/themes';
 
 const ThemeContext = createContext();
 
@@ -20,8 +20,8 @@ export const ThemeProvider = ({ children, viewMode }) => {
   });
 
   const currentTheme = React.useMemo(() => {
-    if (viewMode === 'normal') {
-      return theme === 'light' ? normalLightTheme : normalDarkTheme;
+    if (viewMode === 'classic') {
+      return theme === 'light' ? classicLightTheme : classicDarkTheme;
     }
     return theme === 'light' ? lightTheme : darkTheme;
   }, [theme, viewMode]);
