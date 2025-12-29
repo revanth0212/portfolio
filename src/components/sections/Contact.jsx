@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTheme } from '../../context/ThemeContext';
+import { social } from '../../config/social';
+import { personal } from '../../config/personal';
 
 const SectionContainer = styled.section`
   padding: 2rem;
@@ -107,7 +109,7 @@ const Contact = () => {
     <SectionContainer>
       <SectionTitle theme={currentTheme}>Get In Touch</SectionTitle>
       <p style={{ color: currentTheme.muted }}>
-        I'm a Senior Software Engineer at Adobe with 9+ years of experience.
+        I'm a {personal.title} at {personal.company} with {personal.experience.text} of experience.
         Always open to discussing new opportunities and ideas.
       </p>
 
@@ -116,8 +118,8 @@ const Contact = () => {
           <ContactIcon>📧</ContactIcon>
           <ContactInfo>
             <ContactLabel theme={currentTheme}>Email</ContactLabel>
-            <ContactValue href="mailto:revanth0212@gmail.com" theme={currentTheme}>
-              revanth0212@gmail.com
+            <ContactValue href={`mailto:${social.email}`} theme={currentTheme}>
+              {social.email}
             </ContactValue>
           </ContactInfo>
         </ContactItem>
@@ -126,7 +128,7 @@ const Contact = () => {
           <ContactIcon>📍</ContactIcon>
           <ContactInfo>
             <ContactLabel theme={currentTheme}>Location</ContactLabel>
-            <ContactValue theme={currentTheme}>Austin, Texas</ContactValue>
+            <ContactValue theme={currentTheme}>{personal.location}</ContactValue>
           </ContactInfo>
         </ContactItem>
 
@@ -134,14 +136,14 @@ const Contact = () => {
           <ContactIcon>💼</ContactIcon>
           <ContactInfo>
             <ContactLabel theme={currentTheme}>Company</ContactLabel>
-            <ContactValue theme={currentTheme}>Adobe</ContactValue>
+            <ContactValue theme={currentTheme}>{personal.company}</ContactValue>
           </ContactInfo>
         </ContactItem>
       </ContactCard>
 
       <SocialLinks>
         <SocialButton
-          href="https://github.com/revanth0212"
+          href={social.github.url}
           target="_blank"
           rel="noopener noreferrer"
           theme={currentTheme}
@@ -149,7 +151,7 @@ const Contact = () => {
           <span>🐙</span> GitHub
         </SocialButton>
         <SocialButton
-          href="https://www.linkedin.com/in/revanth0212"
+          href={social.linkedin.url}
           target="_blank"
           rel="noopener noreferrer"
           theme={currentTheme}

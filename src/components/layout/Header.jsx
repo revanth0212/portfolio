@@ -5,6 +5,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { useView } from '../../context/ViewContext';
 import ThemeToggle from '../common/ThemeToggle';
 import ViewToggle from '../common/ViewToggle';
+import { siteConfig } from '../../config/site';
 
 const HeaderContainer = styled.header`
   padding: 1.5rem 2rem;
@@ -71,7 +72,7 @@ const Header = ({ onToggleHelp }) => {
   const { view } = useView();
 
   const getTitle = () => {
-    return view === 'normal' ? 'Revanth' : 'revanth@portfolio:~$';
+    return view === 'normal' ? siteConfig.normalTitle : siteConfig.terminalPrompt;
   };
 
   return (

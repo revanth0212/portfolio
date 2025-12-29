@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTheme } from '../../context/ThemeContext';
+import { personal } from '../../config/personal';
 
 const SectionContainer = styled.section`
   padding: 2rem;
@@ -74,27 +75,27 @@ const About = () => {
 
       <Content>
         <Paragraph>
-          <Highlight theme={currentTheme}>Hello!</Highlight> I'm Revanth Kumar Annavarapu,
-          a Senior Software Engineer at Adobe with over 9 years of experience in
+          <Highlight theme={currentTheme}>Hello!</Highlight> I'm {personal.name.full},
+          a {personal.title} at {personal.company} with {personal.experience.text} of experience in
           frontend development and software engineering.
         </Paragraph>
 
         <Paragraph>
-          I specialize in <Highlight theme={currentTheme}>building scalable web applications</Highlight>,
+          I specialize in <Highlight theme={currentTheme}>{personal.about.specialization}</Highlight>,
           distributed systems, and developer tools. My expertise spans frontend frameworks,
           backend architecture, database design, and network security.
         </Paragraph>
 
         <Paragraph>
-          I hold a Master's degree from <Highlight theme={currentTheme}>The University of Texas at Dallas</Highlight>
-          and have a Cisco Certified Network Associate certification. Throughout my career,
+          I hold a {personal.education.degree} from <Highlight theme={currentTheme}>{personal.education.school}</Highlight>
+          and have a {personal.education.certification}. Throughout my career,
           I've worked on projects ranging from IoT systems to real-time e-commerce platforms
           and distributed database systems.
         </Paragraph>
 
         <Paragraph>
-          Currently based in <Highlight theme={currentTheme}>Austin, Texas</Highlight>, I'm passionate
-          about clean code, elegant architecture, and mentoring other developers.
+          Currently based in <Highlight theme={currentTheme}>{personal.location}</Highlight>, I'm passionate
+          about {personal.about.interests.join(', ')}.
         </Paragraph>
 
         <Paragraph>

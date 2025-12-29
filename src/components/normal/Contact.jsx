@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTheme } from '../../context/ThemeContext';
+import { contactInfo, social } from '../../config/social';
+import { personal } from '../../config/personal';
 
 const Container = styled.div`
   max-width: 700px;
@@ -91,26 +93,7 @@ const FooterText = styled.p`
 const Contact = () => {
   const { currentTheme } = useTheme();
 
-  const contacts = [
-    {
-      icon: '📧',
-      label: 'Email',
-      value: 'revanth0212@gmail.com',
-      href: 'mailto:revanth0212@gmail.com'
-    },
-    {
-      icon: '💼',
-      label: 'LinkedIn',
-      value: 'linkedin.com/in/revanth0212',
-      href: 'https://www.linkedin.com/in/revanth0212'
-    },
-    {
-      icon: '🐙',
-      label: 'GitHub',
-      value: 'github.com/revanth0212',
-      href: 'https://github.com/revanth0212'
-    }
-  ];
+  const contacts = [contactInfo.email, contactInfo.linkedin, contactInfo.github];
 
   return (
     <Container>
@@ -140,7 +123,7 @@ const Contact = () => {
       </ContactCard>
 
       <FooterText theme={currentTheme}>
-        I'm currently a Senior Software Engineer at Adobe. Feel free to reach out!
+        I'm currently a {personal.title} at {personal.company}. Feel free to reach out!
       </FooterText>
     </Container>
   );

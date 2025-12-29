@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
+import { personal } from '../../config/personal';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -69,9 +70,9 @@ const Home = () => {
   return (
     <Container>
       <Hero>
-        <Title theme={currentTheme}>Hi, I'm Revanth Kumar Annavarapu</Title>
+        <Title theme={currentTheme}>Hi, I'm {personal.name.full}</Title>
         <Subtitle theme={currentTheme}>
-          Senior Software Engineer at Adobe with 9+ years of experience in frontend development and distributed systems.
+          {personal.title} at {personal.company} with {personal.experience.text} of experience in frontend development and distributed systems.
         </Subtitle>
         <Navigation>
           <NavLink to="/about" theme={currentTheme}>About</NavLink>
