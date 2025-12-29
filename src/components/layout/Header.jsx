@@ -1,23 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
+import { useView } from '../../context/ViewContext';
 import ThemeToggle from '../common/ThemeToggle';
+import ViewToggle from '../common/ViewToggle';
 
 const HeaderContainer = styled.header`
   padding: 1.5rem 2rem;
-  border-bottom: 2px solid ${props => props.theme.accent};
+  border-bottom: ${props => props.view === 'normal' ? '1px' : '2px'} solid ${props => props.theme.accent};
   background-color: ${props => props.theme.secondary};
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const Title = styled.h1`
-  font-size: 1.25rem;
-  font-weight: 600;
+const Title = styled(Link)`
+  font-size: ${props => props.view === 'normal' ? '1.5rem' : '1.25rem'};
+  font-weight: ${props => props.view === 'normal' ? '700' : '600'};
   color: ${props => props.theme.foreground};
   margin: 0;
-  font-family: 'Fira Code', monospace;
+  font-family: ${props => props.view === 'normal' ? 'system-ui, -apple-system, sans-serif' : "'Fira Code', monospace"};
+  letter-spacing: ${props => props.view === 'normal' ? '-0.02em' : 'normal'};
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: ${props => props.theme.accent};
+  }
+
+  &:focus {
+    outline: none;
+    text-decoration: underline;
+    text-decoration-color: ${props => props.theme.accent};
+  }
 `;
 
 const Controls = styled.div`
@@ -41,7 +57,7 @@ const HelpButton = styled.button`
   &:hover {
     background-color: ${props => props.theme.accent};
     border-color: ${props => props.theme.accent};
-    color: ${props => props.theme.name === 'light' ? '#fff' : props.theme.background};
+    color: ${props => props.theme.name === 'light' || props.theme.name === 'normal-light' ? '#fff' : props.theme.background};
   }
 
   &:focus {
@@ -52,20 +68,28 @@ const HelpButton = styled.button`
 
 const Header = ({ onToggleHelp }) => {
   const { currentTheme } = useTheme();
+  const { view } = useView();
+
+  const getTitle = () => {
+    return view === 'normal' ? 'Revanth' : 'revanth@portfolio:~$';
+  };
 
   return (
-    <HeaderContainer theme={currentTheme}>
-      <Title theme={currentTheme}>user@portfolio:~$</Title>
+    <HeaderContainer theme={currentTheme} view={view}>
+      <Title to="/" theme={currentTheme} view={view}>{getTitle()}</Title>
       <Controls>
-        <HelpButton
-          theme={currentTheme}
-          onClick={onToggleHelp}
-          aria-label="Show keyboard shortcuts"
-          title="Help (?)"
-        >
-          ?
-        </HelpButton>
+        <ViewToggle />
         <ThemeToggle />
+        {view === 'terminal' && (
+          <HelpButton
+            theme={currentTheme}
+            onClick={onToggleHelp}
+            aria-label="Show keyboard shortcuts"
+            title="Help (?)"
+          >
+            ?
+          </HelpButton>
+        )}
       </Controls>
     </HeaderContainer>
   );

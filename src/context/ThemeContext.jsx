@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { ThemeProvider as SCThemeProvider } from 'styled-components';
-import { lightTheme, darkTheme } from '../styles/themes';
+import { lightTheme, darkTheme, normalLightTheme, normalDarkTheme } from '../styles/themes';
 
 const ThemeContext = createContext();
 
@@ -12,14 +12,19 @@ export const useTheme = () => {
   return context;
 };
 
-export const ThemeProvider = ({ children }) => {
+export const ThemeProvider = ({ children, viewMode }) => {
   const [theme, setTheme] = useState(() => {
     // Load theme preference from localStorage
     const savedTheme = localStorage.getItem('portfolio-theme');
     return savedTheme || 'light';
   });
 
-  const currentTheme = theme === 'light' ? lightTheme : darkTheme;
+  const currentTheme = React.useMemo(() => {
+    if (viewMode === 'normal') {
+      return theme === 'light' ? normalLightTheme : normalDarkTheme;
+    }
+    return theme === 'light' ? lightTheme : darkTheme;
+  }, [theme, viewMode]);
 
   useEffect(() => {
     // Save theme preference to localStorage

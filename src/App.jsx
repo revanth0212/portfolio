@@ -2,16 +2,27 @@ import React, { useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
+import { ViewProvider, useView } from './context/ViewContext';
 import GlobalStyle from './styles/globalStyles';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import HelpModal from './components/common/HelpModal';
 import TerminalInput from './components/common/TerminalInput';
+// Terminal view components
 import About from './components/sections/About';
 import Projects from './components/sections/Projects';
 import Blog from './components/sections/Blog';
+import BlogPost from './components/sections/BlogPost';
 import Skills from './components/sections/Skills';
 import Contact from './components/sections/Contact';
+// Normal view components
+import NormalHome from './components/normal/Home';
+import NormalAbout from './components/normal/About';
+import NormalProjects from './components/normal/Projects';
+import NormalBlog from './components/normal/Blog';
+import NormalBlogPost from './components/normal/BlogPost';
+import NormalSkills from './components/normal/Skills';
+import NormalContact from './components/normal/Contact';
 import { AVAILABLE_COMMANDS } from './utils/keyboardNavigation';
 
 const AppWrapper = styled.div`
@@ -128,6 +139,7 @@ const WelcomeText = styled.p`
 
 const AppContent = () => {
   const { currentTheme, toggleTheme } = useTheme();
+  const { view } = useView();
   const [output, setOutput] = useState([]);
   const [showHelp, setShowHelp] = useState(false);
   const location = useLocation();
@@ -190,6 +202,68 @@ const AppContent = () => {
     // Keep output but clear focus
   };
 
+  // Terminal View
+  if (view === 'terminal') {
+    return (
+      <AppWrapper>
+        <GlobalStyle />
+        <Header onToggleHelp={toggleHelp} />
+
+        <Main>
+          <Content>
+            <Routes>
+              <Route path="/" element={
+                <>
+                  <Welcome theme={currentTheme}>
+                    <WelcomeTitle theme={currentTheme}>Welcome to My Portfolio</WelcomeTitle>
+                    <WelcomeText theme={currentTheme}>
+                      Navigate using the commands below or type a command in the terminal.
+                    </WelcomeText>
+                  </Welcome>
+                  <NavigationMenu theme={currentTheme}>
+                    <MenuTitle theme={currentTheme}>Quick Navigation</MenuTitle>
+                    <MenuList>
+                      <MenuItem><MenuLink to="/about" theme={currentTheme}>about</MenuLink></MenuItem>
+                      <MenuItem><MenuLink to="/projects" theme={currentTheme}>projects</MenuLink></MenuItem>
+                      <MenuItem><MenuLink to="/blog" theme={currentTheme}>blog</MenuLink></MenuItem>
+                      <MenuItem><MenuLink to="/skills" theme={currentTheme}>skills</MenuLink></MenuItem>
+                      <MenuItem><MenuLink to="/contact" theme={currentTheme}>contact</MenuLink></MenuItem>
+                    </MenuList>
+                  </NavigationMenu>
+                </>
+              } />
+              <Route path="/about" element={<About />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogPost />} />
+              <Route path="/skills" element={<Skills />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+
+            {output.length > 0 && (
+              <TerminalOutput theme={currentTheme}>
+                {output.map((line, index) => (
+                  <OutputLine key={index} className={line.type} theme={currentTheme}>
+                    {line.text}
+                  </OutputLine>
+                ))}
+              </TerminalOutput>
+            )}
+
+            <TerminalOutput theme={currentTheme}>
+              <TerminalInput onExecuteCommand={executeCommand} />
+            </TerminalOutput>
+          </Content>
+        </Main>
+
+        <Footer />
+
+        <HelpModal isOpen={showHelp} onClose={() => setShowHelp(false)} />
+      </AppWrapper>
+    );
+  }
+
+  // Normal View
   return (
     <AppWrapper>
       <GlobalStyle />
@@ -198,46 +272,14 @@ const AppContent = () => {
       <Main>
         <Content>
           <Routes>
-            <Route path="/" element={
-              <>
-                <Welcome theme={currentTheme}>
-                  <WelcomeTitle theme={currentTheme}>Welcome to My Portfolio</WelcomeTitle>
-                  <WelcomeText theme={currentTheme}>
-                    Navigate using the commands below or type a command in the terminal.
-                  </WelcomeText>
-                </Welcome>
-                <NavigationMenu theme={currentTheme}>
-                  <MenuTitle theme={currentTheme}>Quick Navigation</MenuTitle>
-                  <MenuList>
-                    <MenuItem><MenuLink to="/about" theme={currentTheme}>about</MenuLink></MenuItem>
-                    <MenuItem><MenuLink to="/projects" theme={currentTheme}>projects</MenuLink></MenuItem>
-                    <MenuItem><MenuLink to="/blog" theme={currentTheme}>blog</MenuLink></MenuItem>
-                    <MenuItem><MenuLink to="/skills" theme={currentTheme}>skills</MenuLink></MenuItem>
-                    <MenuItem><MenuLink to="/contact" theme={currentTheme}>contact</MenuLink></MenuItem>
-                  </MenuList>
-                </NavigationMenu>
-              </>
-            } />
-            <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/skills" element={<Skills />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/" element={<NormalHome />} />
+            <Route path="/about" element={<NormalAbout />} />
+            <Route path="/projects" element={<NormalProjects />} />
+            <Route path="/blog" element={<NormalBlog />} />
+            <Route path="/blog/:id" element={<NormalBlogPost />} />
+            <Route path="/skills" element={<NormalSkills />} />
+            <Route path="/contact" element={<NormalContact />} />
           </Routes>
-
-          {output.length > 0 && (
-            <TerminalOutput theme={currentTheme}>
-              {output.map((line, index) => (
-                <OutputLine key={index} className={line.type} theme={currentTheme}>
-                  {line.text}
-                </OutputLine>
-              ))}
-            </TerminalOutput>
-          )}
-
-          <TerminalOutput theme={currentTheme}>
-            <TerminalInput onExecuteCommand={executeCommand} />
-          </TerminalOutput>
         </Content>
       </Main>
 
@@ -251,10 +293,19 @@ const AppContent = () => {
 const App = () => {
   return (
     <Router>
-      <ThemeProvider>
-        <AppContent />
-      </ThemeProvider>
+      <ViewProvider>
+        <AppContentWrapper />
+      </ViewProvider>
     </Router>
+  );
+};
+
+const AppContentWrapper = () => {
+  const { view } = useView();
+  return (
+    <ThemeProvider viewMode={view}>
+      <AppContent />
+    </ThemeProvider>
   );
 };
 
