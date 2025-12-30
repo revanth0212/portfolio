@@ -2,11 +2,13 @@ import React from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus, vs } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useTheme } from '../../context/ThemeContext';
 import { blogPosts } from '../../data/blogPosts';
 
 const Container = styled.div`
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 3rem 2rem;
 
@@ -186,7 +188,7 @@ const ArticleContent = styled.div`
 `;
 
 const BlogPost = () => {
-  const { currentTheme } = useTheme();
+  const { currentTheme, theme } = useTheme();
   const { id } = useParams();
   const post = blogPosts.find(p => p.id === id);
 
@@ -211,7 +213,29 @@ const BlogPost = () => {
         </ArticleHeader>
 
         <ArticleContent theme={currentTheme}>
-          <ReactMarkdown>{post.content}</ReactMarkdown>
+          <ReactMarkdown
+            components={{
+              code({ node, inline, className, children, ...props }) {
+                const match = /language-(\w+)/.exec(className || '');
+                return !inline && match ? (
+                  <SyntaxHighlighter
+                    style={theme === 'dark' ? vscDarkPlus : vs}
+                    language={match[1]}
+                    PreTag="div"
+                    {...props}
+                  >
+                    {String(children).replace(/\n$/, '')}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                );
+              },
+            }}
+          >
+            {post.content}
+          </ReactMarkdown>
         </ArticleContent>
       </Article>
     </Container>
