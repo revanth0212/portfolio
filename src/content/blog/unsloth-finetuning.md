@@ -1,6 +1,6 @@
 ---
 id: "unsloth-finetuning"
-title: "The Fast Lane: Mastering AI Fine-Tuning with Unsloth"
+title: "A Guide to Fine-Tuning Gemma 3 using Unsloth"
 date: "2025-12-29"
 readTime: "10 min read"
 excerpt: "A technical look at how developers use Unsloth to fine-tune Google's Gemma 2B model on the cloud and deploy it locally to Apple Silicon."
