@@ -1,7 +1,4 @@
-// Blog posts index - imports all markdown blog posts
-import post1Markdown from './moe-cheat-sheet.md?raw';
-import post2Markdown from './mlx-finetuning.md?raw';
-import post3Markdown from './unsloth-finetuning.md?raw';
+// Blog posts index - dynamically loads all markdown files from blog directory
 
 // Simple frontmatter parser (browser-compatible)
 function parseMarkdown(markdownContent) {
@@ -47,12 +44,14 @@ function parseMarkdown(markdownContent) {
   };
 }
 
-// Parse all blog posts
-export const blogPosts = [
-  parseMarkdown(post1Markdown),
-  parseMarkdown(post2Markdown),
-  parseMarkdown(post3Markdown)
-];
+// Dynamically import all markdown files from the blog directory
+const blogModules = import.meta.glob('./*.md', { query: '?raw', import: 'default', eager: true });
+
+// Parse all blog posts and sort by date (newest first)
+export const blogPosts = Object.entries(blogModules)
+  .map(([path, content]) => parseMarkdown(content))
+  .filter(post => post.id && post.title) // Only include valid posts
+  .sort((a, b) => new Date(b.date) - new Date(a.date));
 
 // Get all unique tags from all posts
 export const getAllTags = () => {
