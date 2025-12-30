@@ -1,6 +1,7 @@
 // Blog posts index - imports all markdown blog posts
 import post1Markdown from './moe-cheat-sheet.md?raw';
 import post2Markdown from './mlx-finetuning.md?raw';
+import post3Markdown from './unsloth-finetuning.md?raw';
 
 // Simple frontmatter parser (browser-compatible)
 function parseMarkdown(markdownContent) {
@@ -49,7 +50,8 @@ function parseMarkdown(markdownContent) {
 // Parse all blog posts
 export const blogPosts = [
   parseMarkdown(post1Markdown),
-  parseMarkdown(post2Markdown)
+  parseMarkdown(post2Markdown),
+  parseMarkdown(post3Markdown)
 ];
 
 // Get all unique tags from all posts
