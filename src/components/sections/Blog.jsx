@@ -103,6 +103,12 @@ const TagButton = styled.button`
     border-color: ${props.theme.accent};
   `}
 
+  ${props => props.isExpand && `
+    background-color: ${props.theme.secondary};
+    border-style: dashed;
+    font-weight: 500;
+  `}
+
   @media (max-width: 768px) {
     font-size: 0.75rem;
     padding: 0.25rem 0.6rem;
@@ -205,7 +211,9 @@ const Blog = () => {
   const { currentTheme } = useTheme();
   const [selectedTag, setSelectedTag] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [tagsExpanded, setTagsExpanded] = useState(false);
   const allTags = getAllTags();
+  const TAGS_LIMIT = 5;
 
   const filteredPosts = useMemo(() => {
     let posts = blogPosts;
@@ -281,7 +289,7 @@ const Blog = () => {
         >
           All
         </TagButton>
-        {allTags.map(tag => (
+        {(tagsExpanded ? allTags : allTags.slice(0, TAGS_LIMIT)).map(tag => (
           <TagButton
             key={tag}
             theme={currentTheme}
@@ -291,6 +299,16 @@ const Blog = () => {
             {tag}
           </TagButton>
         ))}
+        {allTags.length > TAGS_LIMIT && (
+          <TagButton
+            theme={currentTheme}
+            isExpand={true}
+            onClick={() => setTagsExpanded(!tagsExpanded)}
+            active={false}
+          >
+            {tagsExpanded ? 'Show less' : `+${allTags.length - TAGS_LIMIT} more`}
+          </TagButton>
+        )}
       </TagFilter>
 
       {filteredPosts.length === 0 ? (
