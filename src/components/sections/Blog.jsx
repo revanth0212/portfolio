@@ -195,6 +195,66 @@ const PostExcerpt = styled.p`
   }
 `;
 
+const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid ${props => props.theme.border};
+
+  @media (max-width: 768px) {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+  }
+`;
+
+const PaginationButton = styled.button`
+  background: ${props => props.active ? props.theme.accent : 'transparent'};
+  color: ${props => props.active ? '#fff' : props.theme.foreground};
+  border: 1px solid ${props => props.active ? props.theme.accent : props.theme.border};
+  padding: 0.4rem 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-family: 'Fira Code', monospace;
+  transition: all 0.2s ease;
+  min-width: 36px;
+
+  &:hover:not(:disabled) {
+    background-color: ${props => props.theme.secondary};
+    border-color: ${props => props.theme.accent};
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px ${props => props.theme.accent};
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    min-width: 32px;
+  }
+`;
+
+const PaginationInfo = styled.span`
+  color: ${props => props.theme.muted};
+  font-size: 0.8rem;
+  margin: 0 0.5rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+    display: none;
+  }
+`;
+
 const EmptyState = styled.div`
   text-align: center;
   padding: 3rem;
@@ -212,8 +272,10 @@ const Blog = () => {
   const [selectedTag, setSelectedTag] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [tagsExpanded, setTagsExpanded] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const allTags = getAllTags();
   const TAGS_LIMIT = 5;
+  const POSTS_PER_PAGE = 5;
 
   const filteredPosts = useMemo(() => {
     let posts = blogPosts;
@@ -236,6 +298,22 @@ const Blog = () => {
 
     return posts;
   }, [selectedTag, searchQuery]);
+
+  // Reset to page 1 when filters change
+  useMemo(() => {
+    setCurrentPage(1);
+  }, [selectedTag, searchQuery]);
+
+  // Calculate pagination
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const endIndex = startIndex + POSTS_PER_PAGE;
+  const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -318,29 +396,85 @@ const Blog = () => {
             : 'No blog posts yet. Check back soon!'}
         </EmptyState>
       ) : (
-        <BlogList>
-          {filteredPosts.map((post) => (
-          <BlogCard
-            key={post.id}
-            to={`/blog/${post.id}`}
-            theme={currentTheme}
-            aria-label={`Read ${post.title}`}
-          >
-            <PostTitle theme={currentTheme}>{post.title}</PostTitle>
-            <PostMeta theme={currentTheme}>
-              [{post.id}] • {post.date} • {post.readTime}
-            </PostMeta>
-            {post.tags && post.tags.length > 0 && (
-              <PostTags>
-                {post.tags.map(tag => (
-                  <Tag key={tag} theme={currentTheme}>{tag}</Tag>
-                ))}
-              </PostTags>
-            )}
-            <PostExcerpt theme={currentTheme}>{post.excerpt}</PostExcerpt>
-          </BlogCard>
-        ))}
-        </BlogList>
+        <>
+          <BlogList>
+            {paginatedPosts.map((post) => (
+            <BlogCard
+              key={post.id}
+              to={`/blog/${post.id}`}
+              theme={currentTheme}
+              aria-label={`Read ${post.title}`}
+            >
+              <PostTitle theme={currentTheme}>{post.title}</PostTitle>
+              <PostMeta theme={currentTheme}>
+                [{post.id}] • {post.date} • {post.readTime}
+              </PostMeta>
+              {post.tags && post.tags.length > 0 && (
+                <PostTags>
+                  {post.tags.map(tag => (
+                    <Tag key={tag} theme={currentTheme}>{tag}</Tag>
+                  ))}
+                </PostTags>
+              )}
+              <PostExcerpt theme={currentTheme}>{post.excerpt}</PostExcerpt>
+            </BlogCard>
+          ))}
+          </BlogList>
+
+          {totalPages > 1 && (
+            <Pagination theme={currentTheme}>
+              <PaginationButton
+                theme={currentTheme}
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                aria-label="Previous page"
+              >
+                ←
+              </PaginationButton>
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                // Show first page, last page, current page, and adjacent pages
+                if (
+                  page === 1 ||
+                  page === totalPages ||
+                  (page >= currentPage - 1 && page <= currentPage + 1)
+                ) {
+                  return (
+                    <PaginationButton
+                      key={page}
+                      theme={currentTheme}
+                      active={currentPage === page}
+                      onClick={() => handlePageChange(page)}
+                    >
+                      {page}
+                    </PaginationButton>
+                  );
+                }
+                // Show ellipsis for skipped pages
+                if (
+                  (page === currentPage - 2 && page > 1) ||
+                  (page === currentPage + 2 && page < totalPages)
+                ) {
+                  return <span key={page} style={{ color: currentTheme.muted }}>...</span>;
+                }
+                return null;
+              })}
+
+              <PaginationButton
+                theme={currentTheme}
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                aria-label="Next page"
+              >
+                →
+              </PaginationButton>
+
+              <PaginationInfo theme={currentTheme}>
+                Page {currentPage} of {totalPages}
+              </PaginationInfo>
+            </Pagination>
+          )}
+        </>
       )}
     </SectionContainer>
   );
