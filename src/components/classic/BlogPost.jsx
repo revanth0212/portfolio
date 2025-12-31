@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
@@ -6,7 +6,7 @@ import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus, vs } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useTheme } from '../../context/ThemeContext';
-import { blogPosts } from '../../data/blogPosts';
+import { blogPosts, loadPostContent } from '../../content/blog';
 
 const Container = styled.div`
   max-width: 900px;
@@ -79,6 +79,31 @@ const ArticleMeta = styled.div`
   gap: 1rem;
   color: ${props => props.theme.muted};
   font-size: 0.9rem;
+`;
+
+const LoadingSpinner = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+  color: ${props => props.theme.accent};
+  font-size: 1.1rem;
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid ${props => props.theme.accent};
+    border-top-color: transparent;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    animation: spin 1s linear infinite;
+  }
 `;
 
 const ArticleContent = styled.div`
@@ -191,10 +216,50 @@ const ArticleContent = styled.div`
 const BlogPost = () => {
   const { currentTheme, theme } = useTheme();
   const { id } = useParams();
-  const post = blogPosts.find(p => p.id === id);
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  if (!post) {
+  const postMetadata = blogPosts.find(p => p.id === id);
+
+  useEffect(() => {
+    async function loadPost() {
+      if (!postMetadata) {
+        setError(true);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const fullPost = await loadPostContent(id);
+        setPost(fullPost);
+      } catch (err) {
+        console.error('Failed to load post:', err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadPost();
+  }, [id, postMetadata]);
+
+  if (error || !postMetadata) {
     return <Navigate to="/blog" replace />;
+  }
+
+  if (loading) {
+    return (
+      <Container>
+        <BackButton to="/blog" theme={currentTheme}>
+          ← Back to Blog
+        </BackButton>
+        <Article theme={currentTheme}>
+          <LoadingSpinner theme={currentTheme}>Loading post...</LoadingSpinner>
+        </Article>
+      </Container>
+    );
   }
 
   return (
@@ -205,11 +270,11 @@ const BlogPost = () => {
 
       <Article theme={currentTheme}>
         <ArticleHeader theme={currentTheme}>
-          <ArticleTitle theme={currentTheme}>{post.title}</ArticleTitle>
+          <ArticleTitle theme={currentTheme}>{postMetadata.title}</ArticleTitle>
           <ArticleMeta theme={currentTheme}>
-            <span>{post.date}</span>
+            <span>{postMetadata.date}</span>
             <span>•</span>
-            <span>{post.readTime}</span>
+            <span>{postMetadata.readTime}</span>
           </ArticleMeta>
         </ArticleHeader>
 

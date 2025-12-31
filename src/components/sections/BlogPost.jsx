@@ -1,13 +1,12 @@
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTheme } from '../../context/ThemeContext';
-import { blogPosts } from '../../data/blogPosts';
+import { blogPosts, loadPostContent } from '../../content/blog';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus, vs } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { Navigate } from 'react-router-dom';
 
 const SectionContainer = styled.section`
   padding: 2rem;
@@ -16,19 +15,6 @@ const SectionContainer = styled.section`
 
   @media (max-width: 768px) {
     padding: 1rem;
-  }
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 1.75rem;
-  color: ${props => props.theme.accent};
-  border-bottom: 2px solid ${props => props.theme.accent};
-  padding-bottom: 0.5rem;
-  margin-bottom: 2rem;
-
-  @media (max-width: 768px) {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
   }
 `;
 
@@ -57,6 +43,31 @@ const PostMeta = styled.div`
   font-size: 0.875rem;
   color: ${props => props.theme.muted};
   margin-bottom: 2rem;
+`;
+
+const LoadingSpinner = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+  color: ${props => props.theme.accent};
+  font-size: 1.1rem;
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid ${props => props.theme.accent};
+    border-top-color: transparent;
+    border-radius: 50%;
+    margin-right: 0.75rem;
+    animation: spin 1s linear infinite;
+  }
 `;
 
 const PostContent = styled.div`
@@ -141,10 +152,52 @@ const PostContent = styled.div`
 const BlogPost = () => {
   const { currentTheme, theme } = useTheme();
   const { id } = useParams();
-  const post = blogPosts.find(p => p.id === id);
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  if (!post) {
+  const postMetadata = blogPosts.find(p => p.id === id);
+
+  useEffect(() => {
+    async function loadPost() {
+      if (!postMetadata) {
+        setError(true);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const fullPost = await loadPostContent(id);
+        setPost(fullPost);
+      } catch (err) {
+        console.error('Failed to load post:', err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadPost();
+  }, [id, postMetadata]);
+
+  if (error || !postMetadata) {
     return <Navigate to="/blog" replace />;
+  }
+
+  if (loading) {
+    return (
+      <SectionContainer>
+        <BackButton
+          to="/blog"
+          theme={currentTheme}
+          aria-label="Back to blog list"
+        >
+          ← Back to Posts
+        </BackButton>
+        <LoadingSpinner theme={currentTheme}>Loading post...</LoadingSpinner>
+      </SectionContainer>
+    );
   }
 
   return (
@@ -157,9 +210,9 @@ const BlogPost = () => {
         ← Back to Posts
       </BackButton>
       <PostContent theme={currentTheme}>
-        <h1>{post.title}</h1>
+        <h1>{postMetadata.title}</h1>
         <PostMeta theme={currentTheme}>
-          {post.date} • {post.readTime}
+          {postMetadata.date} • {postMetadata.readTime}
         </PostMeta>
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
