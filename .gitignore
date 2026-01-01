@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Generated files
+src/content/blog/.generated-metadata.json
+src/content/blog/.id-to-file-map.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
