@@ -1,6 +1,6 @@
 ---
 id: "moe-scaling"
-title: "Scaling LLMs Without Killing Your Compute Budget"
+title: "More Brains, Less FLOPs: Why MoE is the \"Lazy Loading\" of LLMs"
 date: "2025-12-25"
 readTime: "10 min read"
 excerpt: "Learn how Mixture-of-Experts (MoE) architecture breaks the wall between model size and computational efficiency."
