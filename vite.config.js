@@ -6,8 +6,8 @@ import { blogMetadataPlugin } from './vite-plugin-blog-metadata.js';
 // and 'repository-name' with your repository name
 export default defineConfig({
   plugins: [react(), blogMetadataPlugin()],
-  // Use base path '/' for local dev, '/my-portfolio/' for GitHub Pages
-  base: process.env.NODE_ENV === 'production' ? '/my-portfolio/' : '/',
+  // Use base path '/' for local dev, '/portfolio/' for GitHub Pages
+  base: process.env.NODE_ENV === 'production' ? '/portfolio/' : '/',
   build: {
     outDir: 'dist',
     sourcemap: true,
