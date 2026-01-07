@@ -50,6 +50,10 @@ const Highlight = styled.span`
   font-weight: 600;
 `;
 
+const Bold = styled.strong`
+  font-weight: 700;
+`;
+
 const StyledLink = styled(Link)`
   color: ${props => props.theme.accent};
   text-decoration: none;
@@ -95,22 +99,20 @@ const About = () => {
 
       <Content>
         <Paragraph>
-          <Highlight theme={currentTheme}>Hello!</Highlight> I'm {personal.name.full},
-          a {personal.title} at {personal.company} with {personal.experience.text} of experience in
-          frontend development and software engineering.
+          I still remember the first time I tried to take apart a remote-controlled car just to see how the <Highlight theme={currentTheme}>'brain'</Highlight> worked. That same curiosity drives me today, but instead of toy cars, I'm diving into the world of <Highlight theme={currentTheme}>Artificial Intelligence</Highlight>.
         </Paragraph>
 
         <Paragraph>
-          I specialize in <Highlight theme={currentTheme}>{personal.about.specialization}</Highlight>,
-          distributed systems, and developer tools. My expertise spans frontend frameworks,
-          backend architecture, database design, and network security.
+          I believe that AI shouldn't feel like a secret language spoken only by engineers. My mission is to <Highlight theme={currentTheme}>strip away the jargon</Highlight> and make AI <Highlight theme={currentTheme}>super simple</Highlight> for everyone to understand. Whether you're a tech pro or just curious about the future, I'm here to bridge the gap between complex algorithms and everyday conversation.
         </Paragraph>
 
         <Paragraph>
-          I hold a {personal.education.degree} from <Highlight theme={currentTheme}>{personal.education.school}</Highlight>
-          and have a {personal.education.certification}. Throughout my career,
-          I've worked on projects ranging from IoT systems to real-time e-commerce platforms
-          and distributed database systems.
+          Let's make the future of tech something we can <Highlight theme={currentTheme}>all talk about</Highlight>.
+        </Paragraph>
+
+        <Paragraph>
+          <Highlight theme={currentTheme}>Hi there!</Highlight> I'm {personal.name.full},
+          a {personal.title} at {personal.company}.
         </Paragraph>
 
         <Paragraph>
@@ -119,8 +121,7 @@ const About = () => {
         </Paragraph>
 
         <Paragraph>
-          Feel free to explore my <StyledLink to="/projects">projects</StyledLink>,
-          check out my <StyledLink to="/blog">blog</StyledLink>, or
+          Feel free to check out my <StyledLink to="/blog">blog</StyledLink>, or
           <StyledLink to="/contact"> get in touch</StyledLink>!
         </Paragraph>
       </Content>
