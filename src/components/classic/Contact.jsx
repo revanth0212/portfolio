@@ -131,6 +131,13 @@ const Contact = () => {
 
   const contacts = [contactInfo.email, contactInfo.linkedin, contactInfo.github];
 
+  const substackLink = {
+    icon: '📝',
+    label: 'Substack',
+    value: 'revanth0212.substack.com',
+    href: 'https://revanth0212.substack.com/'
+  };
+
   return (
     <Container>
       <Title theme={currentTheme}>Get in Touch</Title>
@@ -155,6 +162,19 @@ const Contact = () => {
               </ContactInfo>
             </ContactItem>
           ))}
+
+          <ContactItem
+            href={substackLink.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            theme={currentTheme}
+          >
+            <ContactIcon>{substackLink.icon}</ContactIcon>
+            <ContactInfo>
+              <ContactLabel theme={currentTheme}>{substackLink.label}</ContactLabel>
+              <ContactValue theme={currentTheme}>{substackLink.value}</ContactValue>
+            </ContactInfo>
+          </ContactItem>
         </ContactList>
       </ContactCard>
 

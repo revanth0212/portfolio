@@ -192,6 +192,14 @@ const Contact = () => {
         >
           <span>💼</span> LinkedIn
         </SocialButton>
+        <SocialButton
+          href="https://revanth0212.substack.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          theme={currentTheme}
+        >
+          <span>📝</span> Substack
+        </SocialButton>
       </SocialLinks>
     </SectionContainer>
   );
